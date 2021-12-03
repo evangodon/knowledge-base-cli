@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"os/exec"
@@ -43,7 +42,5 @@ func Fzf(data io.Reader) (string, error) {
 		return "", err
 	}
 
-	fmt.Println("got here")
 	return strings.TrimSpace(result.String()), nil
-
 }

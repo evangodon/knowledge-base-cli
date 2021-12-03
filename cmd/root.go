@@ -11,6 +11,8 @@ import (
 
 var cfgFile string
 
+var KnowledgeBasePath = "/home/evan/notes/knowledge-base"
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "go-kb",

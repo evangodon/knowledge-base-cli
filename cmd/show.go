@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"kb/utils"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/charmbracelet/glamour"
@@ -12,33 +11,27 @@ import (
 )
 
 //  showCmd represents the show command
-// TODO: extract reading kb folder, https://flaviocopes.com/go-list-files/
 var showCmd = &cobra.Command{
-	Use:   "show",
-	Short: "Show one note from knowledge base",
+	Use:     "show",
+	Aliases: []string{"s"},
+	Short:   "Show one note from knowledge base",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		var files []string
-
-		root := "/home/evan/notes/knowledge-base"
-		err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-			if strings.Contains(path, ".git") {
-				return nil
-			}
-
-			if info.IsDir() {
-				return nil
-			}
-
-			files = append(files, path)
-			return nil
-		})
+		notes, err := utils.ReadAllNotes(KnowledgeBasePath)
 
 		if err != nil {
 			panic(err)
 		}
 
-		reader := strings.NewReader(strings.Join(files, "\n"))
+		var noteNames []string
+		var notesMap = make(map[string]utils.Note)
+
+		for _, note := range notes {
+			noteNames = append(noteNames, note.Name)
+			notesMap[note.Name] = note
+		}
+
+		reader := strings.NewReader(strings.Join(noteNames, "\n"))
 
 		notePath, err := utils.Fzf(reader)
 
@@ -46,7 +39,7 @@ var showCmd = &cobra.Command{
 			panic(err)
 		}
 
-		data, err := os.ReadFile(notePath)
+		data, err := os.ReadFile(notesMap[notePath].Path)
 
 		if err != nil {
 			panic(err)
