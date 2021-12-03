@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "go-jrnl/cmd"
+import "kb/cmd"
 
 func main() {
 	cmd.Execute()
