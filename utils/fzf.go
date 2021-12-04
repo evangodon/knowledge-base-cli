@@ -7,7 +7,8 @@ import (
 	"strings"
 )
 
-func Fzf(data io.Reader) (string, error) {
+// FzfSelect returns the selected line from the given data
+func FzfSelect(data io.Reader) (string, error) {
 	var result strings.Builder
 	cmd := exec.Command("fzf", "--height", "40%")
 	cmd.Stdout = &result
@@ -22,6 +23,7 @@ func Fzf(data io.Reader) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	err = stdin.Close()
 	if err != nil {
 		return "", err

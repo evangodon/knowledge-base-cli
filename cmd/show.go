@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"kb/utils"
 	"os"
-	"strings"
 
 	"github.com/charmbracelet/glamour"
 	"github.com/spf13/cobra"
@@ -17,29 +16,8 @@ var showCmd = &cobra.Command{
 	Short:   "Show one note from knowledge base",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		notes, err := utils.ReadAllNotes(KnowledgeBasePath)
-
-		if err != nil {
-			panic(err)
-		}
-
-		var noteNames []string
-		var notesMap = make(map[string]utils.Note)
-
-		for _, note := range notes {
-			noteNames = append(noteNames, note.Name)
-			notesMap[note.Name] = note
-		}
-
-		reader := strings.NewReader(strings.Join(noteNames, "\n"))
-
-		noteName, err := utils.Fzf(reader)
-
-		if err != nil {
-			panic(err)
-		}
-
-		data, err := os.ReadFile(notesMap[noteName].Path)
+		notePath := utils.SelectNote(KnowledgeBasePath)
+		data, err := os.ReadFile(notePath)
 
 		if err != nil {
 			panic(err)
