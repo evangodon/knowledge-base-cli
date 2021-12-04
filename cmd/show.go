@@ -33,13 +33,13 @@ var showCmd = &cobra.Command{
 
 		reader := strings.NewReader(strings.Join(noteNames, "\n"))
 
-		notePath, err := utils.Fzf(reader)
+		noteName, err := utils.Fzf(reader)
 
 		if err != nil {
 			panic(err)
 		}
 
-		data, err := os.ReadFile(notesMap[notePath].Path)
+		data, err := os.ReadFile(notesMap[noteName].Path)
 
 		if err != nil {
 			panic(err)
