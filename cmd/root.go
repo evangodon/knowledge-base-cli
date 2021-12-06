@@ -15,7 +15,7 @@ var KnowledgeBasePath = "/home/evan/notes/knowledge-base"
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "go-kb",
+	Use:   "kb",
 	Short: "A cli tool for managing my knowledge base",
 	Long:  ``,
 }
@@ -33,7 +33,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-kb.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kb.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -50,10 +50,10 @@ func initConfig() {
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".go-kb" (without extension).
+		// Search config in home directory with name ".kb" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
-		viper.SetConfigName(".go-kb")
+		viper.SetConfigName(".kb")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
