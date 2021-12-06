@@ -72,8 +72,8 @@ func SelectNote(knowledgeBasePath string) (noteName string) {
 	return notePath
 }
 
-// OpenNote opens a note in the default editor
-func OpenNote(notePath string) {
+// OpenNoteWithEditor opens a note in the default editor
+func OpenNoteWithEditor(notePath string) {
 	editor := os.Getenv("EDITOR")
 
 	if editor == "" {

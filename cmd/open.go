@@ -23,7 +23,7 @@ var openCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		utils.OpenNote(notePath)
+		utils.OpenNoteWithEditor(notePath)
 
 	},
 }

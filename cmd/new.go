@@ -44,7 +44,7 @@ var newCmd = &cobra.Command{
 			fmt.Printf("Unable to write file: %v", err)
 		}
 
-		utils.OpenNote(filePath)
+		utils.OpenNoteWithEditor(filePath)
 
 	},
 }
